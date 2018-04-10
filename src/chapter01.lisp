@@ -1,3 +1,9 @@
+(uiop/package:define-package :paip-excercise/src/chapter01 (:nicknames)
+                             (:use :paip :cl) (:shadow)
+                             (:import-from :paip-excercise/src/export)
+                             (:export) (:intern))
+(in-package :paip-excercise/src/chapter01)
+;;don't edit above
 1.1
 
 (defun first-name (name)

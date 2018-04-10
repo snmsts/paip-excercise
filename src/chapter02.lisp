@@ -1,3 +1,11 @@
+(uiop/package:define-package :paip-excercise/src/chapter02 (:nicknames)
+                             (:use :paip :cl) (:shadow)
+                             (:import-from :paip-excercise/src/export)
+                             (:export) (:intern))
+(in-package :paip-excercise/src/chapter02)
+;;don't edit above
+(paip:do-examples 2)
+
 2.1
 
 (defun generate (phrase)
