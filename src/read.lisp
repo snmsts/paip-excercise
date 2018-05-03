@@ -1,4 +1,5 @@
-(uiop/package:define-package :paip-excercise/src/read (:use :cl))
+(uiop/package:define-package :paip-excercise/src/read (:nicknames) (:use :cl)
+                             (:shadow) (:export :excercise) (:intern))
 (in-package :paip-excercise/src/read)
 ;;;don't edit above
 
