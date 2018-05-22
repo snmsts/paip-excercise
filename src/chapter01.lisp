@@ -4,6 +4,7 @@
                              (:export) (:intern))
 (in-package :paip-excercise/src/chapter01)
 ;;don't edit above
+
 1.1
 
 (defun first-name (name)
@@ -39,6 +40,7 @@
           (* x (power x (1- n))))))
 
 1.3
+#|
 (defun count-atoms (list)
   (let ((num 0))
     (mapcar #'(lambda (x)
@@ -49,7 +51,7 @@
                         (incf num))))
             list)
     num))
-
+|#
 (defun count-atoms (x &optional (null 0))
   (if (null x)
       null
@@ -86,3 +88,4 @@
 (defun dot-product (a b)
   (apply #'+ (mapcar #'* a b)))
 ;;(dot-product '(10 20) '(3 4))
+

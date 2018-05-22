@@ -60,6 +60,7 @@ when possible."
 ;;(exercise-3.4 '(1 (3 7 8) . 5))
 
 3.5
+;;skip
 (defun exercise-3.5 ()
   "(Exercise in altering structure.) Write a program that will play the
 role of the guesser in the game Twenty Questions. The user of the program will have
@@ -69,3 +70,73 @@ out of guesses, it gives up and asks the user what \"it\" was. At first the prog
 not play well, but each time it plays, it will remember the user's replies and use them
 for subsequent guesses."
   )
+
+3.6
+"Given the following initialization for the lexical variable a and the "
+(setf a 'global-a) 
+(defvar *b* 'global-b) 
+
+(defun fn () *b*) 
+
+(let ((a 'local-a) 
+      (*b* 'local-b)) 
+  (list a *b* (fn) (symbol-value 'a) (symbol-value'*b*)))
+;;-> '(LOCAL-A LOCAL-B LOCAL-B GLOBAL-A LOCAL-B)
+
+3.7
+"Why do you think the leftmost of two keys is the one that counts, 
+rather than the rightmost?"
+
+;; see answer.
+
+3.8
+"Some versions of Kyoto Common Lisp (KCL) have a bug wherein 
+they use the rightmost value when more than one keyword/value pair is specified 
+for the same keyword. Change the definition of find-a1l so that it works in KCL. 
+"
+(defun find-all (item sequence &rest keyword-args
+                 &key (test #'eql) test-not &allow-other-keys)
+  "Find all those elements of sequence that match item,
+according to the keywords. Doesn't alter sequence."
+  (setf test (or (getf keyword-args :test) test))
+  (setf test-not (or (getf keyword-args :test-not) test-not))
+  (if test-not
+      (apply #'remove item sequence
+             :test-not (complement test-not) keyword-args)
+      (apply #'remove item sequence
+             :test (complement test) keyword-args)))
+
+3.9
+"Write a version of length using the function reduce. "
+(defun length- (list)
+  (reduce (lambda (x y)
+            (declare (ignore y))
+            (1+ x))
+          list
+          :initial-value 0))
+
+3.10
+"Use a reference manual or describe to figure out what the functions lcm and nreconc"
+
+;;lcm := least common multiple
+;;nreconc := (nconc (nreverse x) y)
+
+3.11
+
+"There is a built-in Common Lisp function that, given a key, a 
+value, and an association List, returns a new association list that is extended to 
+include the key/value pair. What is the name of this function?"
+
+;;see:
+;;http://www.lispworks.com/documentation/HyperSpec/Body/14_aba.htm
+;; googled "assoc acons clhs"
+
+3.12
+"Write a single expression using format that will take a list of 
+words and print them as a sentence, with the first word capitalized and a period after 
+the last word. You will have to consult a reference to learn new format directives."
+
+;;see pcl loop for blackbelts. http://www.gigamonkeys.com/book/loop-for-black-belts.html
+
+;;(format nil "~@(~{~A~^ ~}~)."'(red blue green white black))
+;;=> "Red blue green white black."

@@ -4,41 +4,41 @@
                              (:export) (:intern))
 (in-package :paip-excercise/src/chapter02)
 ;;don't edit above
-(paip:do-examples 2)
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (paip:do-examples 2))
 
 2.1
-
-(defun generate (phrase)
+(defun generate1 (phrase)
   "Generate a random sentence or phrase"
   (let (partial)
     (cond ((listp phrase)
-           (mappend #'generate phrase))
+           (mappend 'generate1 phrase))
           ((setf partial (rewrites phrase))
-           (generate (random-elt partial)))
+           (generate1 (random-elt partial)))
           (t (list phrase)))))
 
-(defun generate (phrase)
+(defun random-elt (x) (first x))
+(defun generate2 (phrase)
   "Generate a random sentence or phrase"
   (cond ((listp phrase)
-         (mappend #'generate phrase))
-        ((generate (random-elt (or (rewrites phrase) '(nil)))))
+         (mappend 'generate2 phrase))
+        ((generate2 (random-elt (or (rewrites phrase) '(nil)))))
         (t (list phrase))))
-(generate 'phrase)
+
 2.2
 
-(defun generate (phrase)
+(defun generate3 (phrase)
   "Generate a random sentence or phrase"
   (cond ((list p phrase)
-         (mappend #'generate phrase))
+         (mappend 'generate3 phrase))
         ((non-terminal-p phrase)
-         (generate (random-elt (rewrites phrase))))
+         (generate3 (random-elt (rewrites phrase))))
         (t (lis t phrase))))
 
 (setf (symbol-function 'non-terminal-p)
       #'rewrites)
 
 2.3
-
 (defun lisp ()
   (let* ((*grammar*
           `((lisp -> form%)
@@ -74,10 +74,12 @@
 ;;(lisp)
 
 2.4
+#+nil
 (defun cross-product (fn xlist ylist)
   (mappend #'(lambda (y)
                (mapcar #'(lambda (x) (fn x y)) xlist))
            ylist))
 
+#+nil
 (defun combine-all (xlist ylist)
   (cross-product #'append xlist ylist))
